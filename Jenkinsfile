@@ -1,19 +1,23 @@
 pipeline {
-      agent {
-           docker {
-               image 'node:20-alpine'
-           }
-       }
+    agent {
+        docker {
+            image 'node:20-alpine'
+        }
+    }
     stages {
+        stage ('Install Dependencies') {
+            steps {
+                sh '''
+                    echo "Installing dependencies..."
+                    yarn install
+                '''
+            }
+        }
         stage ('Check Lint') {
             steps {
-                script {
-                    echo "Check Lint"
-                }
                 sh '''
                     echo "Running lint checks..."
-                    # Replace the command below with your linting command
-                    yarn lint
+                    yarn run eslint '**/*.{js,jsx,ts,tsx}' --quiet
                 '''
             }
         }
