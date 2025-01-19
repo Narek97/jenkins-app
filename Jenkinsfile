@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Running lint checks..."
-                    yarn run eslint '**/*.{js,jsx,ts,tsx}' --quiet
+                    yarn run lint
                 '''
             }
         }
