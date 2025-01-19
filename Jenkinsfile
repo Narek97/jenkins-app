@@ -1,13 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage ('Hello') {
+        stage ('Check Lint') {
             steps {
                 script {
-                    echo "Hello world"
+                    echo "Check Lint"
                 }
+                sh '''
+                    echo "Running lint checks..."
+                    # Replace the command below with your linting command
+                    yarn lint
+                '''
             }
         }
     }
 }
-
