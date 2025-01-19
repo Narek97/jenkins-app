@@ -29,5 +29,13 @@ pipeline {
                 '''
             }
         }
+        stage('Test') { // Renamed this stage to 'Test' for clarity
+            steps {
+                sh '''
+                    echo "Running tests..."
+                    yarn test
+                '''
+            }
+        }
     }
 }
