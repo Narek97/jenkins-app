@@ -21,7 +21,7 @@ pipeline {
                 '''
             }
         }
-        stage('Build') {
+        stage('Build app') {
             steps {
                 sh '''
                     echo "Building the project..."
@@ -29,7 +29,7 @@ pipeline {
                 '''
             }
         }
-        stage('Test') { // Renamed this stage to 'Test' for clarity
+        stage('Check Test') { // Renamed this stage to 'Test' for clarity
             steps {
                 sh '''
                     echo "Running tests..."
