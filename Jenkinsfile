@@ -41,25 +41,18 @@ pipeline {
             }
         }
         stage('Deploy to EC2') {
-            steps {
-                script {
-                    echo "Deploying the application to EC2..."
-                    sshagent(['jenkins-es2']) { // Ensure 'jenkins-es2' is the correct Jenkins credentials ID
-                        // Copy deployment script to EC2 instance
-                        sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
-
-                        // SSH into EC2 and execute the deployment script
-                        sh '''
-                            ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} << EOF
-                            cd /home/ubuntu/app
-                            ls -l
-                            chmod +x run.sh
-                            ./run.sh test
-                            EOF
-                        '''
-                    }
-                }
-            }
+           stage ('deploy to EC2') {
+                      steps {
+                          script {
+                              echo "deploying to shell-script to ec2"
+                              sshagent (['aws-key']) {
+                                  sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
+                                   // SSH into EC2, navigate to the 'app' directory, and list its contents
+                                  sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'cd /home/ubuntu/app && ls -l && chmod +x run.sh && ./run.sh test'"
+                              }
+                          }
+                      }
+                  }
         }
     }
 }
