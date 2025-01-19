@@ -23,7 +23,7 @@ pipeline {
                         // Verify the file is present in the workspace
                         // SSH into EC2, navigate to the 'app' directory, and list its contents
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'cd /home/ubuntu/app && ls -l && chmod +x run.sh && ./run.sh test'"
-                    }ß
+                    }
                 }
             }
         }
