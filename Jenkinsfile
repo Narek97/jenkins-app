@@ -1,23 +1,31 @@
 pipeline {
     agent {
         docker {
-            image 'node:20-alpine'
+            image 'node:20-alpine' // Using Node.js 20 with Alpine for a lightweight image
         }
     }
     stages {
-        stage ('Install Dependencies') {
+        stage('Install Dependencies') {
             steps {
                 sh '''
                     echo "Installing dependencies..."
-                    yarn install
+                    yarn install --frozen-lockfile
                 '''
             }
         }
-        stage ('Check Lint') {
+        stage('Check Lint') {
             steps {
                 sh '''
                     echo "Running lint checks..."
-                    yarn run lint
+                    yarn lint
+                '''
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                    echo "Building the project..."
+                    yarn build
                 '''
             }
         }
