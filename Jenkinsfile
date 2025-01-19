@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20-alpine' // Using Node.js 20 with Alpine for a lightweight image
-        }
-    }
+    agent any
 
     environment {
         EC2_IP = '18.216.217.37'
